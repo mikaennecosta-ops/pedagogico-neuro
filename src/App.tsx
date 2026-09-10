@@ -14,6 +14,8 @@ import { ProposalsHistoryView } from './components/ProposalsHistoryView';
 import { InclusiveKnowledgeBase } from './components/InclusiveKnowledgeBase';
 import { StudentProfileModal } from './components/StudentProfileModal';
 import { LocalDataModal } from './components/LocalDataModal';
+import { AnimatedWelcomeScreen } from './components/AnimatedWelcomeScreen';
+import { AnimatePresence } from 'motion/react';
 import { CheckCircle2, ShieldCheck, Heart } from 'lucide-react';
 
 export default function App() {
@@ -22,6 +24,9 @@ export default function App() {
   const [activities, setActivities] = useState<ActivityInput[]>([]);
   const [proposals, setProposals] = useState<SavedProposal[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<StudentProfile | null>(null);
+
+  // Welcome Screen (starts open for animated colorful welcome)
+  const [isWelcomeScreenOpen, setIsWelcomeScreenOpen] = useState(true);
 
   // Navigation
   const [currentTab, setCurrentTab] = useState<'workbench' | 'students' | 'history' | 'guide'>(
@@ -156,6 +161,7 @@ export default function App() {
           setAccessibility((prev) => ({ ...prev, ...updates }))
         }
         onOpenDataModal={() => setIsDataModalOpen(true)}
+        onOpenWelcomeScreen={() => setIsWelcomeScreenOpen(true)}
         savedProposalsCount={proposals.length}
         studentsCount={students.length}
       />
@@ -247,6 +253,21 @@ export default function App() {
           proposals: proposals.length,
         }}
       />
+
+      {/* Animated and Colorful Opening / Welcome Screen */}
+      <AnimatePresence>
+        {isWelcomeScreenOpen && (
+          <AnimatedWelcomeScreen
+            onEnterApp={(tab) => {
+              if (tab) setCurrentTab(tab);
+              setIsWelcomeScreenOpen(false);
+            }}
+            onDismissForever={() => {
+              localStorage.setItem('incluiEdu_hideWelcome', 'true');
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -20,6 +20,7 @@ interface NavbarProps {
   accessibility: AccessibilityOptions;
   onUpdateAccessibility: (updates: Partial<AccessibilityOptions>) => void;
   onOpenDataModal: () => void;
+  onOpenWelcomeScreen: () => void;
   savedProposalsCount: number;
   studentsCount: number;
 }
@@ -30,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   accessibility,
   onUpdateAccessibility,
   onOpenDataModal,
+  onOpenWelcomeScreen,
   savedProposalsCount,
   studentsCount,
 }) => {
@@ -38,13 +40,17 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-2">
           {/* Logo & Identity */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center shadow-sm">
-              <Sparkles className="w-5 h-5" />
+          <button
+            onClick={onOpenWelcomeScreen}
+            className="flex items-center gap-3 text-left group focus:outline-none"
+            title="Clique para abrir a Tela de Abertura Animada"
+          >
+            <div className="w-10 h-10 rounded-xl bg-teal-600 group-hover:bg-teal-700 text-white flex items-center justify-center shadow-sm transition-colors">
+              <Sparkles className="w-5 h-5 text-amber-300" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-lg tracking-tight text-slate-900">
+                <span className="font-bold text-lg tracking-tight text-slate-900 group-hover:text-teal-700 transition-colors">
                   Inclui<span className="text-teal-600">Edu</span>
                 </span>
                 <span className="hidden sm:inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-teal-50 text-teal-700 border border-teal-200">
@@ -55,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Adaptação Sensorial e Cognitiva para Neurodivergentes
               </p>
             </div>
-          </div>
+          </button>
 
           {/* Navigation Tabs */}
           <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200/60">
@@ -122,6 +128,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Actions: Local Privacy Badge & Accessibility */}
           <div className="flex items-center gap-2">
+            {/* Animated Welcome Screen Trigger */}
+            <button
+              id="btn-nav-welcome-screen"
+              onClick={onOpenWelcomeScreen}
+              title="Ver Tela de Abertura Animada e Colorida"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-amber-50 to-teal-50 text-teal-900 border border-teal-200 hover:border-teal-300 hover:shadow-xs transition-all"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+              <span className="hidden sm:inline">Abertura</span>
+            </button>
+
             {/* Local Data Privacy Badge & Trigger */}
             <button
               id="btn-open-local-data"
