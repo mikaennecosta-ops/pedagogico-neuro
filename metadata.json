@@ -1,0 +1,6 @@
+{
+  "name": "IncluiEdu - Adaptador Psicopedagógico Inclusivo",
+  "description": "Plataforma especialista em psicopedagogia e inclusão social para adaptação personalizada de atividades escolares para crianças neurodivergentes com dados locais e privados.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
